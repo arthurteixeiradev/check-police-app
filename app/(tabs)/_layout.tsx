@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { HapticTab } from '@/components/HapticTab'
 import TabBarBackground from '@/components/ui/TabBarBackground'
-import { Colors } from '@/constants/Colors'
 import { CarFront, House } from 'lucide-react-native'
 
 export default function TabLayout() {
@@ -12,7 +11,7 @@ export default function TabLayout() {
     <SafeAreaView style={{ flex: 1 }}>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: Colors.light.tint,
+          tabBarActiveTintColor: '#16A34A',
           headerShown: false,
           tabBarButton: HapticTab,
           tabBarBackground: TabBarBackground,
