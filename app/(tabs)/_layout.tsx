@@ -3,9 +3,9 @@ import { Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { HapticTab } from '@/components/HapticTab'
-import { IconSymbol } from '@/components/ui/IconSymbol'
 import TabBarBackground from '@/components/ui/TabBarBackground'
 import { Colors } from '@/constants/Colors'
+import { CarFront, House } from 'lucide-react-native'
 
 export default function TabLayout() {
   return (
@@ -27,9 +27,8 @@ export default function TabLayout() {
           options={{
             title: 'Home',
             tabBarIcon: ({ color }) => (
-              <IconSymbol
-                size={28}
-                name='house.fill'
+              <House
+                size={25}
                 color={color}
               />
             ),
@@ -41,9 +40,8 @@ export default function TabLayout() {
           options={{
             title: 'Viaturas',
             tabBarIcon: ({ color }) => (
-              <IconSymbol
-                size={28}
-                name='house.fill'
+              <CarFront
+                size={25}
                 color={color}
               />
             ),

@@ -1,36 +1,60 @@
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input'
+import { FilterItem } from '@/components/vehicles/FilterItem'
+import { VehicleItem } from '@/components/vehicles/VehicleItem'
 import { vehicles } from '@/data/vehicles'
-import { ChevronRight, Search } from 'lucide-react-native'
-import { useState } from 'react'
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { Search } from 'lucide-react-native'
+import { useCallback, useMemo, useState } from 'react'
+import { FlatList, Text, View } from 'react-native'
 
-const filtros: string[] = ['Todos', 'Polo', 'Duster', 'Triton', 'SW4']
+const filtros = ['Todos', 'Polo', 'Duster', 'Triton', 'SW4'] as const
+type Filtro = (typeof filtros)[number]
 
 export default function VehiclesScreen() {
-  const [filtroAtivo, setFiltroAtivo] = useState('Todos')
+  const [filtroAtivo, setFiltroAtivo] = useState<Filtro>('Todos')
   const [search, setSearch] = useState('')
 
-  const viaturasFiltradas = vehicles.filter((v) => {
-    const matchFiltro = filtroAtivo === 'Todos' || v.modelo === filtroAtivo
-    const termo = search.toLowerCase()
-    const matchSearch =
-      v.placa.toLowerCase().includes(termo) ||
-      v.modelo.toLowerCase().includes(termo)
-    return matchFiltro && matchSearch
-  })
+  const viaturasFiltradas = useMemo(() => {
+    const termo = search.trim().toLowerCase()
+    return vehicles.filter(({ modelo, placa }) => {
+      const matchFiltro = filtroAtivo === 'Todos' || modelo === filtroAtivo
+      const matchSearch =
+        !termo ||
+        placa.toLowerCase().includes(termo) ||
+        modelo.toLowerCase().includes(termo)
+      return matchFiltro && matchSearch
+    })
+  }, [filtroAtivo, search])
+
+  const renderFiltro = useCallback(
+    ({ item }: { item: Filtro }) => (
+      <FilterItem
+        label={item}
+        ativo={filtroAtivo === item}
+        onPress={() => setFiltroAtivo(item)}
+      />
+    ),
+    [filtroAtivo],
+  )
+
+  const renderViatura = useCallback(
+    ({ item }: { item: (typeof vehicles)[number] }) => (
+      <VehicleItem
+        tipo={item.tipo}
+        placa={item.placa}
+      />
+    ),
+    [],
+  )
 
   return (
-    <View className='flex-1'>
-      <View className='px-4 pt-6'>
-        <Text className='text-xl font-bold mb-3'>Viaturas</Text>
+    <View className='flex-1 p-6 gap-4'>
+      <View className='gap-4'>
+        <Text className='text-xl text-center font-bold mb-3'>Viaturas</Text>
 
         <Input
           className='rounded-lg'
           variant='outline'
           size='xl'
-          isDisabled={false}
-          isInvalid={false}
-          isReadOnly={false}
         >
           <InputSlot className='pl-3'>
             <InputIcon
@@ -41,7 +65,7 @@ export default function VehiclesScreen() {
           <InputField
             value={search}
             onChangeText={setSearch}
-            placeholder='Enter Text here...'
+            placeholder='Buscar por placa ou modelo...'
           />
         </Input>
 
@@ -50,47 +74,23 @@ export default function VehiclesScreen() {
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => setFiltroAtivo(item)}
-              className={`px-4 py-2 rounded-full mr-2 mt-3 ${
-                filtroAtivo === item ? 'bg-green-200' : 'bg-[#E8EFE9]'
-              }`}
-            >
-              <Text
-                className={`text-sm ${
-                  filtroAtivo === item
-                    ? 'font-bold text-green-800'
-                    : 'text-black'
-                }`}
-              >
-                {item}
-              </Text>
-            </TouchableOpacity>
-          )}
+          renderItem={renderFiltro}
+          contentContainerStyle={{ paddingVertical: 8 }}
         />
       </View>
 
       <FlatList
         data={viaturasFiltradas}
         keyExtractor={(item) => item.id}
+        renderItem={renderViatura}
         ListEmptyComponent={
           <Text className='text-center mt-6 text-gray-500'>
             Nenhuma viatura encontrada
           </Text>
         }
-        renderItem={({ item }) => (
-          <TouchableOpacity className='flex-row items-center px-4 py-3 border-b border-gray-200'>
-            <View className='w-9 h-9 rounded-full bg-green-100 items-center justify-center mr-3'>
-              <Text className='font-bold'>{item.tipo}</Text>
-            </View>
-            <Text className='flex-1 text-base'>{item.placa}</Text>
-            <ChevronRight
-              size={20}
-              color='#333'
-            />
-          </TouchableOpacity>
-        )}
+        removeClippedSubviews
+        initialNumToRender={8}
+        maxToRenderPerBatch={10}
       />
     </View>
   )
