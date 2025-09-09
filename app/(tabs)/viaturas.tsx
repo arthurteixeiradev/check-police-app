@@ -1,13 +1,11 @@
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input'
 import { FilterItem } from '@/components/vehicles/FilterItem'
 import { VehicleItem } from '@/components/vehicles/VehicleItem'
+import { Filtro, filtros } from '@/data/vehicleFilter'
 import { vehicles } from '@/data/vehicles'
 import { Search } from 'lucide-react-native'
 import { useCallback, useMemo, useState } from 'react'
 import { FlatList, Text, View } from 'react-native'
-
-const filtros = ['Todos', 'Polo', 'Duster', 'Triton', 'SW4'] as const
-type Filtro = (typeof filtros)[number]
 
 export default function VehiclesScreen() {
   const [filtroAtivo, setFiltroAtivo] = useState<Filtro>('Todos')
@@ -52,21 +50,21 @@ export default function VehiclesScreen() {
         <Text className='text-xl text-center font-bold mb-3'>Viaturas</Text>
 
         <Input
-          className='rounded-lg'
+          className='rounded-full px-4 bg-zinc-200 h-14'
           variant='outline'
           size='xl'
         >
-          <InputSlot className='pl-3'>
+          <InputField
+            value={search}
+            onChangeText={setSearch}
+            placeholder='Pesquisar viatura'
+          />
+          <InputSlot className=''>
             <InputIcon
               as={Search}
               size={20}
             />
           </InputSlot>
-          <InputField
-            value={search}
-            onChangeText={setSearch}
-            placeholder='Buscar por placa ou modelo...'
-          />
         </Input>
 
         <FlatList

@@ -16,10 +16,14 @@ export default function TabLayout() {
           headerShown: false,
           tabBarButton: HapticTab,
           tabBarBackground: TabBarBackground,
-          tabBarStyle: Platform.select({
-            ios: { position: 'absolute' },
-            default: {},
-          }),
+          tabBarStyle: {
+            height: 60,
+            paddingTop: Platform.OS === 'android' ? 5 : 0,
+            paddingBottom: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: Platform.OS === 'ios' ? 'absolute' : 'relative',
+          },
         }}
       >
         <Tabs.Screen
