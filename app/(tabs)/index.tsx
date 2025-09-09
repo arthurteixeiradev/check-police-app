@@ -1,9 +1,16 @@
-import { Text, View } from 'react-native'
+import { Button, ButtonText } from '@/components/ui/button'
+import { View } from 'react-native'
 
 export default function HomeScreen() {
   return (
-    <View className='flex-1 items-center justify-center bg-red-600'>
-      <Text className='text-2xl font-bold'>Home</Text>
+    <View className='flex-1 items-center justify-center'>
+      <Button
+        variant='solid'
+        size='md'
+        action='primary'
+      >
+        <ButtonText>Click me</ButtonText>
+      </Button>
     </View>
   )
 }
