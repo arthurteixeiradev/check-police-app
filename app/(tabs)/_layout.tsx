@@ -49,6 +49,14 @@ export default function TabLayout() {
             ),
           }}
         />
+        <Tabs.Screen
+          name='checklist/index'
+          options={{
+            title: 'Checklist',
+            tabBarButton: () => null, // Oculta da tab bar
+            tabBarIcon: () => null,   // Oculta o ícone
+          }}
+        />
       </Tabs>
     </SafeAreaView>
   )

@@ -1,3 +1,6 @@
+import { useNavigation } from '@react-navigation/native'
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useRouter } from 'expo-router'
 import { ChevronRight, Search } from "lucide-react-native"
 import { useState } from 'react'
 import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native'
@@ -17,10 +20,16 @@ const viaturas = [
   { id: '10', tipo: 'T', placa: 'R-0016', modelo: 'Triton' },
   { id: '11', tipo: 'S', placa: 'PM-0300', modelo: 'SW4' },
 ]
+type RootStackParamList = {
+  checklist: { viatura: string }
+  // add other routes if needed
+}
 
 export default function ViaturasScreen() {
   const [filtroAtivo, setFiltroAtivo] = useState('Todos')
   const [search, setSearch] = useState('')
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+  const router = useRouter()
 
   // aplica filtro + busca
   const viaturasFiltradas = viaturas.filter(v => {
@@ -84,7 +93,10 @@ export default function ViaturasScreen() {
           </Text>
         }
         renderItem={({ item }) => (
-          <TouchableOpacity className="flex-row items-center px-4 py-3 border-b border-gray-200">
+          <TouchableOpacity
+            className="flex-row items-center px-4 py-3 border-b border-gray-200"
+            onPress={() => router.push({ pathname: '/checklist', params: { viatura: JSON.stringify(item) } })}
+          >
             <View className="w-9 h-9 rounded-full bg-green-100 items-center justify-center mr-3">
               <Text className="font-bold">{item.tipo}</Text>
             </View>
