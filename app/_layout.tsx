@@ -1,6 +1,5 @@
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import './global.css'
@@ -20,13 +19,16 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider mode='light'>
       <SafeAreaProvider>
-        <Stack>
+        <Stack initialRouteName='(auth)/login'>
+          <Stack.Screen
+            name='(auth)/login'
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name='(tabs)'
             options={{ headerShown: false }}
           />
         </Stack>
-        <StatusBar style='light' />
       </SafeAreaProvider>
     </GluestackUIProvider>
   )
