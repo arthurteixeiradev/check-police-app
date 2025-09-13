@@ -1,9 +1,9 @@
+import { Box } from '@/components/ui/box'
 import { Button, ButtonText } from '@/components/ui/button'
-import { View } from 'react-native'
 
 export default function HomeScreen() {
   return (
-    <View className='flex-1 items-center justify-center'>
+    <Box className='flex-1 items-center justify-center'>
       <Button
         variant='solid'
         size='md'
@@ -11,6 +11,6 @@ export default function HomeScreen() {
       >
         <ButtonText>Click me</ButtonText>
       </Button>
-    </View>
+    </Box>
   )
 }

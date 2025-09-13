@@ -1,11 +1,13 @@
+import { Box } from '@/components/ui/box'
 import { Input, InputField, InputIcon, InputSlot } from '@/components/ui/input'
+import { Text } from '@/components/ui/text'
 import { FilterItem } from '@/components/vehicles/FilterItem'
 import { VehicleItem } from '@/components/vehicles/VehicleItem'
 import { Filtro, filtros } from '@/data/vehicleFilter'
 import { vehicles } from '@/data/vehicles'
 import { Search } from 'lucide-react-native'
 import { useCallback, useMemo, useState } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList } from 'react-native'
 
 export default function VehiclesScreen() {
   const [filtroAtivo, setFiltroAtivo] = useState<Filtro>('Todos')
@@ -45,9 +47,11 @@ export default function VehiclesScreen() {
   )
 
   return (
-    <View className='flex-1 p-6 gap-4'>
-      <View className='gap-4'>
-        <Text className='text-xl text-center font-bold mb-3'>Viaturas</Text>
+    <Box className='flex-1 p-6 gap-4'>
+      <Box className='gap-4'>
+        <Text className='text-xl text-center font-bold mb-3 text-black'>
+          Viaturas
+        </Text>
 
         <Input
           className='rounded-full px-4 bg-zinc-200 h-14'
@@ -75,7 +79,7 @@ export default function VehiclesScreen() {
           renderItem={renderFiltro}
           contentContainerStyle={{ paddingVertical: 8 }}
         />
-      </View>
+      </Box>
 
       <FlatList
         data={viaturasFiltradas}
@@ -90,6 +94,6 @@ export default function VehiclesScreen() {
         initialNumToRender={8}
         maxToRenderPerBatch={10}
       />
-    </View>
+    </Box>
   )
 }
