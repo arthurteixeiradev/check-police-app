@@ -5,6 +5,7 @@ import { FilterItem } from '@/components/vehicles/FilterItem'
 import { VehicleItem } from '@/components/vehicles/VehicleItem'
 import { Filtro, filtros } from '@/data/vehicleFilter'
 import { vehicles } from '@/data/vehicles'
+import { VehiclesType } from '@/types/vehiclesType'
 import { Search } from 'lucide-react-native'
 import { useCallback, useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
@@ -37,7 +38,7 @@ export default function VehiclesScreen() {
   )
 
   const renderViatura = useCallback(
-    ({ item }: { item: (typeof vehicles)[number] }) => (
+    ({ item }: { item: VehiclesType }) => (
       <VehicleItem
         tipo={item.tipo}
         placa={item.placa}
