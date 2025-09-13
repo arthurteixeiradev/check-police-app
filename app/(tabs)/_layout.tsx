@@ -4,15 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { HapticTab } from '@/components/HapticTab'
 import TabBarBackground from '@/components/ui/TabBarBackground'
-import { Colors } from '@/constants/Colors'
-import { CarFront, House } from 'lucide-react-native'
+import { Bell, CarFront, House } from 'lucide-react-native'
 
 export default function TabLayout() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: Colors.light.tint,
+          tabBarActiveTintColor: '#16A34A',
           headerShown: false,
           tabBarButton: HapticTab,
           tabBarBackground: TabBarBackground,
@@ -20,14 +19,12 @@ export default function TabLayout() {
             height: 60,
             paddingTop: Platform.OS === 'android' ? 5 : 0,
             paddingBottom: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
             position: Platform.OS === 'ios' ? 'absolute' : 'relative',
           },
         }}
       >
         <Tabs.Screen
-          name='index'
+          name='home'
           options={{
             title: 'Home',
             tabBarIcon: ({ color }) => (
@@ -40,11 +37,24 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          name='viaturas'
+          name='vehicles'
           options={{
             title: 'Viaturas',
             tabBarIcon: ({ color }) => (
               <CarFront
+                size={25}
+                color={color}
+              />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
+          name='notification'
+          options={{
+            title: 'Notificações',
+            tabBarIcon: ({ color }) => (
+              <Bell
                 size={25}
                 color={color}
               />
