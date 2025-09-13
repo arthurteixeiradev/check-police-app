@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { HapticTab } from '@/components/HapticTab'
 import TabBarBackground from '@/components/ui/TabBarBackground'
-import { CarFront, House, Bell } from 'lucide-react-native'
+import { Bell, CarFront, House } from 'lucide-react-native'
 
 export default function TabLayout() {
   return (
@@ -24,7 +24,7 @@ export default function TabLayout() {
         }}
       >
         <Tabs.Screen
-          name='index'
+          name='home'
           options={{
             title: 'Home',
             tabBarIcon: ({ color }) => (
@@ -37,7 +37,7 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          name='viaturas'
+          name='vehicles'
           options={{
             title: 'Viaturas',
             tabBarIcon: ({ color }) => (

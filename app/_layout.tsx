@@ -8,6 +8,8 @@ import '@/app/global.css'
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider'
 
 export default function RootLayout() {
+  const isLoggedIn = false
+
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   })
@@ -19,15 +21,12 @@ export default function RootLayout() {
   return (
     <GluestackUIProvider mode='light'>
       <SafeAreaProvider>
-        <Stack initialRouteName='(auth)/login'>
-          <Stack.Screen
-            name='(auth)/login'
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name='(tabs)'
-            options={{ headerShown: false }}
-          />
+        <Stack screenOptions={{ headerShown: false }}>
+          {isLoggedIn ? (
+            <Stack.Screen name='(tabs)' />
+          ) : (
+            <Stack.Screen name='(auth)/login' />
+          )}
         </Stack>
       </SafeAreaProvider>
     </GluestackUIProvider>
