@@ -1,16 +1,14 @@
-import { Box } from '@/components/ui/box'
-import { Button, ButtonText } from '@/components/ui/button'
+import { StatusBar } from '@/components/home/StatusBar'
+import { VehicleStats } from '@/components/home/VehicleStats'
+import { RecentActivities } from '@/components/home/RecentActivities'
+import { View } from 'react-native'
 
 export default function HomeScreen() {
   return (
-    <Box className='flex-1 items-center justify-center'>
-      <Button
-        variant='solid'
-        size='md'
-        action='primary'
-      >
-        <ButtonText>Click me</ButtonText>
-      </Button>
-    </Box>
+    <View className='flex-1'>
+      <StatusBar />
+      <VehicleStats />
+      <RecentActivities />
+    </View>
   )
 }
