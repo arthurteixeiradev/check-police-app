@@ -1,59 +1,62 @@
-import React, { useState } from 'react'
-import {
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  SafeAreaView,
-} from 'react-native'
+import { Box } from '@/components/ui/box'
+import { Button, ButtonText } from '@/components/ui/button'
+import { Image } from '@/components/ui/image'
+import { Input, InputField } from '@/components/ui/input'
+import { Text } from '@/components/ui/text'
 import { router } from 'expo-router'
+import React, { useState } from 'react'
+import { SafeAreaView } from 'react-native'
 
 export default function LoginScreen() {
   const [login, setLogin] = useState('')
   const [senha, setSenha] = useState('')
 
   return (
-    <SafeAreaView className='flex-1 bg-white items-center justify-center px-6'>
-      {/* Logo */}
+    <SafeAreaView className='flex-1 items-center justify-center p-6'>
       <Image
-        source={require('../../assets/images/logoPMTO.png')}
-        style={{ width: 150, height: 150, marginBottom: 20 }}
+        size={'2xl'}
+        source={require('@/assets/images/logoPMTO.png')}
         resizeMode='contain'
+        alt='Logo PMTO'
       />
 
-      {/* Título */}
-      <Text className='text-lg font-bold mb-8'>Check VTR</Text>
+      <Text className='text-lg font-bold my-4'>Check VTR</Text>
 
-      {/* Input Login */}
-      <TextInput
-        className='w-full h-12 border border-gray-300 rounded-lg px-4 mb-4'
-        placeholder='Digite aqui'
-        value={login}
-        onChangeText={setLogin}
-      />
+      <Box className='w-full gap-2'>
+        <Input
+          size={'xl'}
+          isDisabled={false}
+          isInvalid={false}
+          isReadOnly={false}
+        >
+          <InputField
+            value={login}
+            onChangeText={setLogin}
+            placeholder='Digite seu usuário'
+          />
+        </Input>
 
-      {/* Input Senha */}
-      <TextInput
-        className='w-full h-12 border border-gray-300 rounded-lg px-4 mb-2'
-        placeholder='Digite aqui'
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
+        <Input
+          size={'xl'}
+          isDisabled={false}
+          isInvalid={false}
+          isReadOnly={false}
+        >
+          <InputField
+            value={senha}
+            onChangeText={setSenha}
+            placeholder='Digite sua senha'
+          />
+        </Input>
+      </Box>
 
-      {/* Esqueceu a senha / Primeiro acesso */}
-      <Text className='text-sm text-blue-600 mb-6'>
-        Esqueceu a senha? Primeiro acesso?
-      </Text>
-
-      {/* Botão */}
-      <TouchableOpacity
-        className='w-full h-12 bg-green-700 rounded-lg items-center justify-center'
-        onPress={() => router.replace('/(tabs)/home')}
+      <Button
+        size={'xl'}
+        className='w-full mt-4'
+        onPress={() => router.replace('/home')}
       >
-        <Text className='text-white font-bold'>Entrar</Text>
-      </TouchableOpacity>
+        <ButtonText>Entrar</ButtonText>
+      </Button>
     </SafeAreaView>
   )
 }

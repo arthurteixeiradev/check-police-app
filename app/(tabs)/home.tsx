@@ -1,14 +1,14 @@
+import { RecentActivities } from '@/components/home/RecentActivities'
 import { StatusBar } from '@/components/home/StatusBar'
 import { VehicleStats } from '@/components/home/VehicleStats'
-import { RecentActivities } from '@/components/home/RecentActivities'
-import { View } from 'react-native'
+import { Box } from '@/components/ui/box'
 
 export default function HomeScreen() {
   return (
-    <View className='flex-1'>
+    <Box className='flex-1'>
       <StatusBar />
       <VehicleStats />
       <RecentActivities />
-    </View>
+    </Box>
   )
 }
